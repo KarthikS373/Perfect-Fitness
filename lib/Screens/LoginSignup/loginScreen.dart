@@ -1,5 +1,6 @@
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -7,6 +8,12 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.portraitUp,
+      ],
+    );
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -62,91 +69,97 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     const Positioned(
                       top: 10,
-                      left: 20,
+                      left: 25,
                       child: Text(
                         'Login Here',
                         style: TextStyle(
-                          fontSize: 20,
+                          color: Colors.black12,
+                          fontSize: 22,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                     Positioned(
-                        top: 50,
-                        left: 20,
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.mail_outline,
-                                  color: Colors.grey,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  width: 300,
-                                  child: const TextField(
-                                    cursorColor: Colors.grey,
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                    ),
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'example@gmail.com',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: size.width * .8,
-                              child: const Divider(
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        )),
-                    Positioned(
-                        top: 120,
-                        left: 20,
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.mail_outline,
-                                  color: Colors.grey,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  width: 300,
-                                  child: const TextField(
-                                    obscureText: true,
-                                    cursorColor: Colors.grey,
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 20,
-                                      letterSpacing: 1.4,
-                                    ),
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: '...........',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: size.width * .8,
-                              child: const Divider(
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        )),
-                    Positioned(
-                      top: 180,
+                      top: 55,
                       left: 20,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.mail_outline,
+                                color: Colors.grey,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(left: 10),
+                                width: 300,
+                                child: TextField(
+                                  cursorColor: Colors.grey,
+                                  style: const TextStyle(
+                                    color: Colors.black54,
+                                  ),
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'example@gmail.com',
+                                    hintStyle: TextStyle(
+                                      color: Colors.grey.withOpacity(0.5),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        width: 0.2,
+                                        style: BorderStyle.solid,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      top: 110,
+                      left: 20,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.mail_outline,
+                                color: Colors.grey,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(
+                                  left: 10,
+                                ),
+                                width: 300,
+                                child: TextField(
+                                  obscureText: true,
+                                  cursorColor: Colors.grey,
+                                  style: const TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 20,
+                                    letterSpacing: 1.4,
+                                  ),
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: '* * * * * * * *',
+                                    hintStyle: TextStyle(
+                                      color: Colors.grey.withOpacity(0.5),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      top: 165,
+                      left: 22,
                       child: SizedBox(
                         width: size.width * .8,
                         child: Row(
@@ -177,8 +190,8 @@ class LoginScreen extends StatelessWidget {
                         },
                         child: Container(
                           padding: const EdgeInsets.all(9),
-                          height: 40,
-                          width: 40,
+                          height: 50,
+                          width: 50,
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               colors: [

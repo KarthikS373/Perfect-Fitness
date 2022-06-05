@@ -15,18 +15,6 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (context) => const HomeScreen(),
         );
-      case '/profile':
-        return MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        );
-      case '/recent_activities':
-        return MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        );
-      case '/pedometer':
-        return MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        );
       case '/welcome':
         return MaterialPageRoute(
           builder: (context) => const WelcomeScreen(),

@@ -29,12 +29,15 @@ class StepCountBar extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(
-                height: 1,
+                height: 10,
               ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
+                    const SizedBox(
+                      width: 20,
+                    ),
                     Expanded(
                       flex: 4,
                       child: Column(
@@ -47,7 +50,7 @@ class StepCountBar extends StatelessWidget {
                                   steps.toString(),
                                   style: GoogleFonts.aBeeZee(
                                     color: Colors.white,
-                                    fontSize: 50,
+                                    fontSize: 55,
                                     letterSpacing: 2,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -55,7 +58,6 @@ class StepCountBar extends StatelessWidget {
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                // this is for edit icon
                                 const Icon(
                                   Icons.edit,
                                   color: Colors.white,
@@ -65,7 +67,7 @@ class StepCountBar extends StatelessWidget {
                             ),
                           ),
                           Align(
-                            alignment: Alignment.center,
+                            alignment: Alignment.centerLeft,
                             child: Container(
                               height: 30,
                               width: 100,
@@ -92,8 +94,16 @@ class StepCountBar extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 1,
-                      child: ContainerButton(
-                        const Icon(
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          color: Colors.green,
+                        ),
+                        child: const Icon(
                           Icons.play_arrow,
                           color: Colors.white,
                           size: 30,

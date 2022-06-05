@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:fitness_monitoring/Screens/StepcountScreen/stepCountBar.dart';
 import 'package:fitness_monitoring/Screens/StepcountScreen/stepDailyAvg.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
-import 'package:fitness_monitoring/Widgets/Buttons/containerButton.dart';
 import 'package:fitness_monitoring/Widgets/Text/clickableTextHeader.dart';
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -56,8 +55,6 @@ class _StepcountScreenState extends State<StepcountScreen> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      // Color(0xff0C1E4E),
-                      // Color(0xff224A88),
                       bgColor,
                       bgColor,
                       Colors.black12,
