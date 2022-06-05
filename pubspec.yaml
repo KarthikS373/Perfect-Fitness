@@ -39,6 +39,9 @@ dependencies:
   fl_chart: ^0.51.0
   provider: ^6.0.3
   intl: ^0.17.0
+  sensors_plus: ^1.3.2
+  shared_preferences: ^2.0.15
+  percent_indicator: ^4.2.2
 
 dev_dependencies:
   flutter_test:

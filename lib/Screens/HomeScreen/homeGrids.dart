@@ -24,7 +24,7 @@ class HomeGrids extends StatelessWidget {
         itemBuilder: (context, index) {
           return InkWell(
             onTapDown: (details) {
-              print(homegridOptions[index].navURL);
+              Navigator.of(context).pushNamed('/StepCount');
             },
             child: Container(
                 decoration: const BoxDecoration(

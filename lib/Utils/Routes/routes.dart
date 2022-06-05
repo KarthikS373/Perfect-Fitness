@@ -1,6 +1,7 @@
 import 'package:fitness_monitoring/Screens/HomeScreen/HomeScreen.dart';
 import 'package:fitness_monitoring/Screens/LoginSignup/loginScreen.dart';
 import 'package:fitness_monitoring/Screens/LoginSignup/welcomeScreen.dart';
+import 'package:fitness_monitoring/Screens/StepcountScreen/stepScreen.dart';
 import 'package:flutter/material.dart';
 
 class RouteManager {
@@ -33,6 +34,10 @@ class RouteManager {
       case '/login':
         return MaterialPageRoute(
           builder: (context) => const LoginScreen(),
+        );
+      case '/StepCount':
+        return MaterialPageRoute(
+          builder: (context) => const StepcountScreen(),
         );
       default:
         throw const FormatException("Out of bound Routing");
