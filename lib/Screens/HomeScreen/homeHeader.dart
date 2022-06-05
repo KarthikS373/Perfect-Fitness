@@ -1,5 +1,5 @@
 import 'package:fitness_monitoring/Models/userProfiles.dart';
-import 'package:fitness_monitoring/Utils/colors.dart';
+import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:fitness_monitoring/Widgets/Fields/searchField.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,12 +11,14 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          "Home",
-          style: Theme
-              .of(context)
-              .textTheme
-              .headline6,
+        GestureDetector(
+          onTapDown: (details) {
+            Scaffold.of(context).openDrawer();
+          },
+          child: Text(
+            "Home",
+            style: Theme.of(context).textTheme.headline6,
+          ),
         ),
         const Spacer(
           flex: 1,

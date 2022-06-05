@@ -12,12 +12,16 @@ class DrawerListTile extends StatelessWidget {
       required this.width,
       required this.title,
       required this.onTap,
-      required this.svgURL})
+      this.svgURL = "assets/SVG/home.svg"})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+        vertical: 5,
+        horizontal: 25,
+      ),
       onTap: onTap,
       horizontalTitleGap: 0,
       leading: SvgPicture.asset(

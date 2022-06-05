@@ -1,4 +1,4 @@
-import 'package:fitness_monitoring/Utils/colors.dart';
+import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class SearchField extends StatelessWidget {

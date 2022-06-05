@@ -1,5 +1,6 @@
 import 'package:fitness_monitoring/Screens/HomeScreen/HomeScreen.dart';
-import 'package:fitness_monitoring/Utils/colors.dart';
+import 'package:fitness_monitoring/Utils/Routes/routes.dart';
+import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
             .apply(bodyColor: Colors.white),
         canvasColor: secondaryColor,
       ),
-      home: const HomeScreen(),
+      initialRoute: '/',
+      onGenerateRoute: RouteManager.generateRoute,
       debugShowCheckedModeBanner: false,
     );
   }

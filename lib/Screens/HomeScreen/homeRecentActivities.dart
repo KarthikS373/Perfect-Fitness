@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:fitness_monitoring/Models/recentActivities.dart';
-import 'package:fitness_monitoring/Utils/colors.dart';
+import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -85,7 +85,7 @@ class _HomeRecentActivitiesState extends State<HomeRecentActivities> {
                         ),
                         const Spacer(),
                         Text(
-                          "${recentActivities[index].caloriesBurnt} cal",
+                          "${recentActivities[index].caloriesBurnt}cal",
                         ),
                       ],
                     ),
@@ -96,7 +96,7 @@ class _HomeRecentActivitiesState extends State<HomeRecentActivities> {
             ),
             Container(
               padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.3456,
+                horizontal: MediaQuery.of(context).size.width * 0.1,
                 vertical: 5,
               ),
               decoration: BoxDecoration(

@@ -1,5 +1,5 @@
 import 'package:fitness_monitoring/Models/homeGridOptions.dart';
-import 'package:fitness_monitoring/Utils/colors.dart';
+import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
