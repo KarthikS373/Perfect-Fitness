@@ -11,6 +11,7 @@ class CustomDrawerList extends StatelessWidget {
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.5,
       child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return DrawerListTile(
             width: double.infinity,

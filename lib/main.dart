@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
             .apply(bodyColor: Colors.white),
         canvasColor: secondaryColor,
       ),
-      initialRoute: '/',
+      initialRoute: '/welcome',
       onGenerateRoute: RouteManager.generateRoute,
       debugShowCheckedModeBanner: false,
     );

@@ -54,7 +54,7 @@ class _HomeStepCountState extends State<HomeStepCount> {
                         radius: 5,
                       ),
                       PieChartSectionData(
-                        color: Colors.red,
+                        color: greenTextColor,
                         value: 50,
                         showTitle: false,
                         radius: 10,
