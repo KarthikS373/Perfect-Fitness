@@ -1,5 +1,6 @@
 import 'package:fitness_monitoring/Screens/HomeScreen/homeGrids.dart';
 import 'package:fitness_monitoring/Screens/HomeScreen/homeHeader.dart';
+import 'package:fitness_monitoring/Screens/HomeScreen/homeRecentActivities.dart';
 import 'package:fitness_monitoring/Screens/HomeScreen/homeStepCount.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
               HomeHeader(),
               HomeStepCount(),
               HomeGrids(),
+              HomeRecentActivities(),
             ],
           ),
         ),

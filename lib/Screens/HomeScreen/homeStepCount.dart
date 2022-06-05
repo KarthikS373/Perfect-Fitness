@@ -2,6 +2,7 @@ import 'package:fitness_monitoring/Utils/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:math';
 
 class HomeStepCount extends StatefulWidget {
   const HomeStepCount({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _HomeStepCountState extends State<HomeStepCount> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
-      height: MediaQuery.of(context).size.height * 0.35,
+      height: max(MediaQuery.of(context).size.height * 0.35, 300),
       width: double.infinity,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
