@@ -80,7 +80,7 @@ class StepCountBar extends StatelessWidget {
                                   "Pause",
                                   style: GoogleFonts.aBeeZee(
                                     color: Colors.green,
-                                    fontSize: 30,
+                                    fontSize: 22,
                                   ),
                                 ),
                               ),

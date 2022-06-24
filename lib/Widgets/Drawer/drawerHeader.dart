@@ -20,11 +20,16 @@ class CustomDrawerHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CircleAvatar(
-            backgroundImage: AssetImage(
-              currentUser.image,
+          GestureDetector(
+            onTapDown: (details) {
+              Scaffold.of(context).openDrawer();
+            },
+            child: CircleAvatar(
+              backgroundImage: AssetImage(
+                currentUser.image,
+              ),
+              maxRadius: 30,
             ),
-            maxRadius: 30,
           ),
           const SizedBox(
             height: 10,

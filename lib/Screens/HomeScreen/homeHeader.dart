@@ -27,25 +27,30 @@ class HomeHeader extends StatelessWidget {
           flex: 2,
           child: SearchField(),
         ),
-        Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: const BoxDecoration(shape: BoxShape.circle),
-              child: CircleAvatar(
-                radius: 15.0,
-                backgroundImage: AssetImage(
-                  currentUser.image,
+        GestureDetector(
+          onTapDown: (details) {
+            Navigator.of(context).pushNamed('/profile');
+          },
+          child: Row(
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: const BoxDecoration(shape: BoxShape.circle),
+                child: CircleAvatar(
+                  radius: 15.0,
+                  backgroundImage: AssetImage(
+                    currentUser.image,
+                  ),
                 ),
               ),
-            ),
-            Text(
-              currentUser.name,
-              style: GoogleFonts.poppins(
-                color: textColor,
+              Text(
+                currentUser.name,
+                style: GoogleFonts.poppins(
+                  color: textColor,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

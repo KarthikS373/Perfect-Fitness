@@ -1,6 +1,7 @@
 import 'package:fitness_monitoring/Screens/HomeScreen/HomeScreen.dart';
 import 'package:fitness_monitoring/Screens/LoginSignup/loginScreen.dart';
 import 'package:fitness_monitoring/Screens/LoginSignup/welcomeScreen.dart';
+import 'package:fitness_monitoring/Screens/ProfileScreen/profileScreen.dart';
 import 'package:fitness_monitoring/Screens/StepcountScreen/stepScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,23 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (context) => const LoginScreen(),
         );
+      case '/profile':
+        return MaterialPageRoute(
+          builder: (context) => const ProfileScreen(),
+        );
       case '/StepCount':
+        return MaterialPageRoute(
+          builder: (context) => const StepcountScreen(),
+        );
+      case '/HeartRate':
+        return MaterialPageRoute(
+          builder: (context) => const StepcountScreen(),
+        );
+      case '/Calories':
+        return MaterialPageRoute(
+          builder: (context) => const StepcountScreen(),
+        );
+      case '/Temperature':
         return MaterialPageRoute(
           builder: (context) => const StepcountScreen(),
         );

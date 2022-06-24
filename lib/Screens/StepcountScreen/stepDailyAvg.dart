@@ -41,7 +41,7 @@ class StepDailyAvg extends StatelessWidget {
               height: 8,
             ),
             SizedBox(
-              height: 100,
+              height: 150,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
