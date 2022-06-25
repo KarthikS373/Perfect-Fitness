@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DrawerListOptions {
   final String svgURL;
   final String title;
-  final VoidCallback onTap;
+  final String onTap;
 
   const DrawerListOptions({
       required this.title,
@@ -13,9 +13,10 @@ class DrawerListOptions {
 }
 
 List<DrawerListOptions> drawerListOptions = [
-  DrawerListOptions(title: "DashBoard", onTap: (){}),
-  DrawerListOptions(title: "ProfileScreen", onTap: (){}),
-  DrawerListOptions(title: "Recent Activity", onTap: (){}),
-  DrawerListOptions(title: "Leaderboard", onTap: (){}),
-  DrawerListOptions(title: "Developers", onTap: (){}),
+  const DrawerListOptions(title: "DashBoard", onTap: ""),
+  const DrawerListOptions(title: "ProfileScreen", onTap: ""),
+  const DrawerListOptions(title: "Exercise", onTap: "/exercise"),
+  const DrawerListOptions(title: "Recent Activity", onTap: ""),
+  const DrawerListOptions(title: "Leaderboard", onTap: ""),
+  const DrawerListOptions(title: "Developers", onTap: ""),
 ];

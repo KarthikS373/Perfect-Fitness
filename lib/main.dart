@@ -1,8 +1,6 @@
-import 'package:fitness_monitoring/Screens/HomeScreen/HomeScreen.dart';
 import 'package:fitness_monitoring/Utils/Routes/routes.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {

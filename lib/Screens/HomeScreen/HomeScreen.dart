@@ -1,7 +1,9 @@
+import 'package:fitness_monitoring/Models/excersiseDB.dart';
 import 'package:fitness_monitoring/Screens/HomeScreen/homeGrids.dart';
 import 'package:fitness_monitoring/Screens/HomeScreen/homeHeader.dart';
 import 'package:fitness_monitoring/Screens/HomeScreen/homeRecentActivities.dart';
 import 'package:fitness_monitoring/Screens/HomeScreen/homeStepCount.dart';
+import 'package:fitness_monitoring/Widgets/Cards/fitnessCard.dart';
 import 'package:fitness_monitoring/Widgets/Drawer/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +22,16 @@ class HomeScreen extends StatelessWidget {
               HomeHeader(),
               HomeStepCount(),
               HomeGrids(),
+              FitnessCard(
+                title: "Title abc",
+                subtitle: "subtitle",
+                icons: [
+                  Icons.add,
+                  Icons.add,
+                  Icons.add,
+                  Icons.add,
+                ],
+              ),
               HomeRecentActivities(),
             ],
           ),
