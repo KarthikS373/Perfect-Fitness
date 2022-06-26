@@ -4,7 +4,7 @@ import 'package:fitness_monitoring/Screens/ExerciseScreen/exerciseScreen.dart';
 import 'package:fitness_monitoring/Screens/ExerciseScreen/subExerciseScreen.dart';
 import 'package:fitness_monitoring/Screens/FeedbackScreen/feedbackScreen.dart';
 import 'package:fitness_monitoring/Screens/HomeScreen/HomeScreen.dart';
-import 'package:fitness_monitoring/Screens/LeaderBoardScreen/leaderboardScreen.dart';
+import 'package:fitness_monitoring/Screens/LeaderBoardScreen/Profile.dart';
 import 'package:fitness_monitoring/Screens/LoginSignup/loginScreen.dart';
 import 'package:fitness_monitoring/Screens/LoginSignup/welcomeScreen.dart';
 import 'package:fitness_monitoring/Screens/ProfileScreen/profileScreen.dart';
@@ -64,7 +64,7 @@ class RouteManager {
           ),
         );
 
-       case '/exercise-info':
+      case '/exercise-info':
         return MaterialPageRoute(
           builder: (context) => ExerciseInfo(
             item: args["item"],
@@ -78,7 +78,7 @@ class RouteManager {
 
       case '/leaderboard':
         return MaterialPageRoute(
-          builder: (context) => const LeaderboardScreen(),
+          builder: (context) => const Profile(),
         );
 
       case '/feedback':
