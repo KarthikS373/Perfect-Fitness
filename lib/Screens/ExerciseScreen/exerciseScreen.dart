@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:fitness_monitoring/Models/excersiseDB.dart';
@@ -118,6 +119,16 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               ),
             );
           } else {
+            Future.delayed(
+              const Duration(
+                seconds: 1,
+              ),
+              () => setState(
+                () {
+                  data;
+                },
+              ),
+            );
             return const Center(
               child: CircularProgressIndicator(),
             );
