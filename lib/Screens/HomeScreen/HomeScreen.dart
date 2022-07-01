@@ -23,8 +23,8 @@ class HomeScreen extends StatelessWidget {
               HomeStepCount(),
               HomeGrids(),
               FitnessCard(
-                title: "Title abc",
-                subtitle: "subtitle",
+                title: "Exercise",
+                subtitle: "The perfect fitness",
                 icons: [
                   Icons.add,
                   Icons.add,

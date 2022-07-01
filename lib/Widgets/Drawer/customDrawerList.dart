@@ -17,6 +17,7 @@ class CustomDrawerList extends StatelessWidget {
             width: double.infinity,
             title: drawerListOptions[index].title,
             onTap: () {
+              Scaffold.of(context).closeDrawer();
               Navigator.of(context).pushNamed(drawerListOptions[index].onTap);
             },
             svgURL: drawerListOptions[index].svgURL,

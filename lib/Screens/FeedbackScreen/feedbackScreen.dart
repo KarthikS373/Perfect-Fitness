@@ -1,3 +1,5 @@
+import 'package:fitness_monitoring/Models/userProfiles.dart';
+import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -29,77 +31,109 @@ class FeedbackScreen extends StatelessWidget {
           children: [
             AppHeader(),
             Positioned(
-                top: -600,
-                left: -187,
-                child: Opacity(
-                  opacity: 0.9,
-                  child: Image.asset("assets/images/img.png"),
-                )),
+              top: -600,
+              left: -187,
+              child: Opacity(
+                opacity: 0.9,
+                child: Image.asset("assets/Images/Logo.png"),
+              ),
+            ),
             SafeArea(
-                child: Container(
-              padding: EdgeInsets.all(kDefaultPadding + 2),
-              child: Column(
-                children: [
-                  CustomAppBar(),
-                  SizedBox(height: kDefaultPadding + 2),
-                  Image.asset(
-                    "assets/images/dp.png",
-                    width: getScreenProportionWidth(166, MediaQuery.of(context).size),
-                  ),
-                  SizedBox(height: kDefaultPadding + 2),
-                  const Text(
-                    "Username ",
-                    style: TextStyle(
+              child: Container(
+                padding: const EdgeInsets.all(kDefaultPadding + 2),
+                child: Column(
+                  children: [
+                    CustomAppBar(),
+                    const SizedBox(height: kDefaultPadding + 2),
+                    Image.asset(
+                      "assets/Images/Logo.png",
+                      width: getScreenProportionWidth(
+                          166, MediaQuery.of(context).size),
+                    ),
+                    const SizedBox(
+                      height: kDefaultPadding + 2,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      "Username ",
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 14,
+                      ),
+                    ),
+                    Text(
+                      currentUser.name,
+                      style: const TextStyle(
+                        color: textColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: kDefaultPadding + 2,
+                    ),
+                    const Divider(
+                      indent: 35,
+                      endIndent: 35,
                       color: kTextLightColor,
-                      fontSize: 14,
                     ),
-                  ),
-                  const Text(
-                    'Spartan',
-                    style: TextStyle(
-                      color: kTextColor,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                    const SizedBox(
+                      height: kDefaultPadding + 2,
                     ),
-                  ),
-                  const SizedBox(height: kDefaultPadding + 2),
-                  const Divider(
-                    color: kTextLightColor,
-                  ),
-                  const SizedBox(height: kDefaultPadding + 2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      RideInfo(title: 'Time', value: '1000 min'),
-                      RideInfo(title: 'Calories', value: '10000'),
-                      RideInfo(title: 'Distance', value: '150 km'),
-                    ],
-                  ),
-                  const SizedBox(height: kDefaultPadding + 2),
-                  const Divider(
-                    color: kTextLightColor,
-                  ),
-                  const Text(
-                    "How is your experience of our app ",
-                    style: TextStyle(
-                      color: kTextColor,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        RideInfo(
+                          title: 'Time',
+                          value: '1000 min',
+                        ),
+                        RideInfo(
+                          title: 'Calories',
+                          value: '10000',
+                        ),
+                        RideInfo(
+                          title: 'Distance',
+                          value: '150 km',
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: kDefaultPadding + 2),
-                  SmoothStarRating(
-                    size: 45,
-                    onRated: (v) {},
-                    starCount: 5,
-                    allowHalfRating: true,
-                    spacing: kDefaultPadding,
-                  ),
-                  const SizedBox(height: kDefaultPadding + 2),
-                  Container(
-                      padding: EdgeInsets.all(kDefaultPadding),
+                    const SizedBox(
+                      height: kDefaultPadding + 2,
+                    ),
+                    const Divider(
+                      indent: 35,
+                      endIndent: 35,
+                      color: kTextLightColor,
+                    ),
+                    const Text(
+                      "How is your experience of our app ",
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: kDefaultPadding + 2,
+                    ),
+                    SmoothStarRating(
+                      color: Colors.yellowAccent,
+                      borderColor: Colors.white,
+                      size: 45,
+                      onRated: (v) {},
+                      starCount: 5,
+                      allowHalfRating: true,
+                      spacing: kDefaultPadding,
+                    ),
+                    const SizedBox(
+                      height: kDefaultPadding + 2,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: secondaryColor,
                           borderRadius: BorderRadius.circular(12.0),
                           boxShadow: [
                             BoxShadow(
@@ -109,45 +143,63 @@ class FeedbackScreen extends StatelessWidget {
                             )
                           ]),
                       child: const TextField(
+                        cursorColor: textColor,
                         textInputAction: TextInputAction.newline,
                         keyboardType: TextInputType.multiline,
-                        maxLines: 2,
+                        maxLines: 3,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Additional Comments',
                           hintStyle: TextStyle(
-                            color: kTextLightColor,
+                            color: Colors.white54,
                           ),
                         ),
-                      )),
-                  const SizedBox(height: kDefaultPadding + 2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.arrow_forward),
-                        label: const Text(
-                          '',
-                          style: TextStyle(
-                            color: Colors.green,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: kDefaultPadding + 2,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.arrow_forward,
+                            color: greenTextColor,
+                          ),
+                          label: const Text(
+                            "",
+                            style: TextStyle(
+                              color: Colors.green,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: secondaryColor,
+                            elevation: 4,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 5,
+                            ),
                           ),
                         ),
-                      )
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ))
+            )
           ],
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: bgColor,
     );
   }
 }
 
 class AppHeader extends StatelessWidget {
+  const AppHeader({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -155,7 +207,7 @@ class AppHeader extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 350.0,
-        color: kPrimaryColor,
+        color: secondaryColor,
       ),
     );
   }
@@ -180,6 +232,8 @@ class MyClipper extends CustomClipper<Path> {
 }
 
 class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -187,21 +241,26 @@ class CustomAppBar extends StatelessWidget {
         Container(
           width: 50.0,
           height: 50.0,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(25.0)),
             color: Colors.white,
           ),
           child: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {},
-            color: kPrimaryColor,
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            color: greenTextColor,
           ),
         ),
-        SizedBox(width: kDefaultPadding),
-        Text(
+        const SizedBox(width: kDefaultPadding),
+        const Text(
           'You are all fit!',
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
         )
       ],
     );
@@ -216,22 +275,25 @@ class RideInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RichText(
-      text: TextSpan(children: [
-        TextSpan(
-          text: title + '\n',
-          style: TextStyle(
-            color: kTextLightColor,
-            fontSize: 14,
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: '$title\n',
+            style: const TextStyle(
+              color: textColor,
+              fontSize: 14,
+            ),
           ),
-        ),
-        TextSpan(
+          TextSpan(
             text: value,
-            style: TextStyle(
-              color: kTextColor,
+            style: const TextStyle(
+              color: textColor,
               fontWeight: FontWeight.bold,
               fontSize: 18,
-            )),
-      ]),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

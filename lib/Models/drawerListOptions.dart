@@ -17,6 +17,6 @@ List<DrawerListOptions> drawerListOptions = [
   const DrawerListOptions(title: "ProfileScreen", onTap: ""),
   const DrawerListOptions(title: "Exercise", onTap: "/exercise"),
   const DrawerListOptions(title: "Recent Activity", onTap: ""),
-  const DrawerListOptions(title: "Leaderboard", onTap: ""),
+  const DrawerListOptions(title: "Leaderboard", onTap: "/leaderboard"),
   const DrawerListOptions(title: "Feedback", onTap: "/feedback"),
 ];

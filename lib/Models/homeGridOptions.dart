@@ -1,3 +1,4 @@
+import 'package:fitness_monitoring/Utils/Routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class HomeGridOption {
@@ -13,21 +14,21 @@ List<HomeGridOption> homegridOptions = [
   HomeGridOption(
     icons: Icons.directions_run,
     name: "Step Count",
-    navURL: "StepCount",
+    navURL: RouteManager.stepCount,
   ),
   HomeGridOption(
     icons: Icons.heart_broken,
     name: "Heart Rate",
-    navURL: "HeartRate",
+    navURL: RouteManager.heartBeat,
   ),
   HomeGridOption(
     icons: Icons.local_fire_department,
     name: "Calories",
-    navURL: "Calories",
+    navURL: RouteManager.calories,
   ),
   HomeGridOption(
-    icons: Icons.thermostat_outlined,
-    name: "Temperature",
-    navURL: "Temperature",
+    icons: Icons.water_drop,
+    name: "Sleep & Water",
+    navURL: RouteManager.waterSleep,
   ),
 ];

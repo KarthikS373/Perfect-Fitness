@@ -16,18 +16,18 @@ class ExerciseInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Random random = new Random();
+    Random random = Random();
     final media = MediaQuery.of(context);
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.network(
-              item.gifUrl.toString(),
-              width: media.size.width,
-            ),
-            Container(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Image.network(
+            item.gifUrl.toString(),
+            width: media.size.width,
+          ),
+          Expanded(
+            child: Container(
               decoration: const BoxDecoration(
                 color: secondaryColor,
                 borderRadius: BorderRadius.only(
@@ -70,7 +70,10 @@ class ExerciseInfo extends StatelessWidget {
                             children: [
                               const Icon(Icons.timelapse_rounded),
                               const Spacer(),
-                              Text("${(max(12, random.nextInt(50)))} mins"),
+                              Text("${(max(
+                                12,
+                                random.nextInt(50),
+                              ))} mins"),
                             ],
                           ),
                         ),
@@ -130,9 +133,9 @@ class ExerciseInfo extends StatelessWidget {
                   ],
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

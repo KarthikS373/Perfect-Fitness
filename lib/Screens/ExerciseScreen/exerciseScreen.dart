@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:fitness_monitoring/Models/excersiseDB.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
+import 'package:fitness_monitoring/Widgets/Cards/dailyStoryCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,23 +50,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   const SizedBox(
                     height: 65,
                   ),
-                  InkWell(
-                    onTap: () {},
-                    splashColor: secondaryColor,
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: secondaryColor.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      height: media.size.height * 0.3,
-                      width: double.infinity,
-                      child: Text(
-                        "Daily Exercise",
-                        style: GoogleFonts.poppins(),
-                      ),
-                    ),
-                  ),
+                  const DailyStory(),
                   GridView.builder(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -15,10 +17,12 @@ class CircularIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // double random = min(0.2, Random().nextDouble());
+    double random = 0.5;
     return CircularPercentIndicator(
       radius: 60,
       lineWidth: 12,
-      percent: 0.5,
+      percent: random,
       circularStrokeCap: CircularStrokeCap.round,
       progressColor: color.withOpacity(0.6),
       backgroundColor: Colors.grey.withOpacity(0.2),
@@ -33,7 +37,6 @@ class CircularIndicator extends StatelessWidget {
           Text(text),
         ],
       ),
-      footer: Text("Cal"),
     );
   }
 }

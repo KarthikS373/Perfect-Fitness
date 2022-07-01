@@ -9,24 +9,41 @@ import 'package:fitness_monitoring/Screens/LoginSignup/loginScreen.dart';
 import 'package:fitness_monitoring/Screens/LoginSignup/welcomeScreen.dart';
 import 'package:fitness_monitoring/Screens/ProfileScreen/profileScreen.dart';
 import 'package:fitness_monitoring/Screens/StepcountScreen/stepScreen.dart';
+import 'package:fitness_monitoring/Screens/WaterSleepScreen/water_sleepScreen.dart';
 import 'package:flutter/material.dart';
 
 class RouteManager {
+
+  static const String home = '/';
+  static const String welcome = '/welcome';
+  static const String login = '/login';
+  static const String profile = '/profile';
+  static const String stepCount = '/StepCount';
+  static const String heartBeat = '/HeartRate';
+  static const String calories = '/Calories';
+  static const String waterSleep = '/water-sleep';
+  static const String exercise = '/exercise';
+  static const String subExercise = '/sub-exercise';
+  static const String exerciseInfo = '/exercise-info';
+  static const String activities= '/activities';
+  static const String leaderboard = '/leaderboard';
+  static const String feedback = '/feedback';
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
     var args;
     if (settings.arguments != null) {
       args = settings.arguments as Map<String, dynamic>;
     }
     switch (settings.name) {
-      case '/':
+      case home:
         return MaterialPageRoute(
           builder: (context) => const HomeScreen(),
         );
-      case '/welcome':
+      case welcome:
         return MaterialPageRoute(
           builder: (context) => const WelcomeScreen(),
         );
-      case '/login':
+      case login:
         return MaterialPageRoute(
           builder: (context) => const LoginScreen(),
         );
@@ -46,9 +63,9 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (context) => const StepcountScreen(),
         );
-      case '/Temperature':
+      case waterSleep:
         return MaterialPageRoute(
-          builder: (context) => const StepcountScreen(),
+          builder: (context) => const WaterSleepScreen(),
         );
 
       case '/exercise':
@@ -87,7 +104,7 @@ class RouteManager {
         );
 
       default:
-        throw const FormatException("Out of bound Routing");
+        throw FormatException("Out of bound Routing at path ${settings.name}");
     }
   }
 }

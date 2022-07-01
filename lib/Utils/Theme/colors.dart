@@ -9,3 +9,5 @@ const glassColor = Color(0xFF5B4D9D);
 
 const gradientColor1 = Color(0xFF20008B);
 const gradientColor2 = Color(0xFF200087);
+
+const waterColor = Color(0xFF2697FF);
