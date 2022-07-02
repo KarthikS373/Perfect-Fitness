@@ -1,11 +1,15 @@
 import 'package:fitness_monitoring/Screens/ActivityScreen/activityScreen.dart';
+import 'package:fitness_monitoring/Screens/CalorieScreen/calorieScreen.dart';
 import 'package:fitness_monitoring/Screens/ExerciseScreen/exerciseInfo.dart';
 import 'package:fitness_monitoring/Screens/ExerciseScreen/exerciseScreen.dart';
 import 'package:fitness_monitoring/Screens/ExerciseScreen/subExerciseScreen.dart';
 import 'package:fitness_monitoring/Screens/FeedbackScreen/feedbackScreen.dart';
+import 'package:fitness_monitoring/Screens/HeartRateScreen/heartRateScreen.dart';
 import 'package:fitness_monitoring/Screens/HomeScreen/HomeScreen.dart';
 import 'package:fitness_monitoring/Screens/LeaderBoardScreen/leaderboardScreen.dart';
+import 'package:fitness_monitoring/Screens/LoginSignup/detailCollectionScreen.dart';
 import 'package:fitness_monitoring/Screens/LoginSignup/loginScreen.dart';
+import 'package:fitness_monitoring/Screens/LoginSignup/signupScreen.dart';
 import 'package:fitness_monitoring/Screens/LoginSignup/welcomeScreen.dart';
 import 'package:fitness_monitoring/Screens/ProfileScreen/profileScreen.dart';
 import 'package:fitness_monitoring/Screens/StepcountScreen/stepScreen.dart';
@@ -13,10 +17,11 @@ import 'package:fitness_monitoring/Screens/WaterSleepScreen/water_sleepScreen.da
 import 'package:flutter/material.dart';
 
 class RouteManager {
-
   static const String home = '/';
   static const String welcome = '/welcome';
   static const String login = '/login';
+  static const String signup = '/signup';
+  static const String detailCollection = '/detail-collection';
   static const String profile = '/profile';
   static const String stepCount = '/StepCount';
   static const String heartBeat = '/HeartRate';
@@ -25,7 +30,7 @@ class RouteManager {
   static const String exercise = '/exercise';
   static const String subExercise = '/sub-exercise';
   static const String exerciseInfo = '/exercise-info';
-  static const String activities= '/activities';
+  static const String activities = '/activities';
   static const String leaderboard = '/leaderboard';
   static const String feedback = '/feedback';
 
@@ -39,41 +44,58 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (context) => const HomeScreen(),
         );
+
       case welcome:
         return MaterialPageRoute(
           builder: (context) => const WelcomeScreen(),
         );
+
       case login:
         return MaterialPageRoute(
           builder: (context) => const LoginScreen(),
         );
-      case '/profile':
+
+      case signup:
+        return MaterialPageRoute(
+          builder: (context) => const SignupScreen(),
+        );
+
+      case detailCollection:
+        return MaterialPageRoute(
+          builder: (context) => const DetailCollectionScreen(),
+        );
+
+      case profile:
         return MaterialPageRoute(
           builder: (context) => const ProfileScreen(),
         );
-      case '/StepCount':
+
+      case stepCount:
         return MaterialPageRoute(
           builder: (context) => const StepcountScreen(),
         );
-      case '/HeartRate':
+
+      case heartBeat:
         return MaterialPageRoute(
-          builder: (context) => const StepcountScreen(),
+          builder: (context) => const HeartRateScreen(),
         );
-      case '/Calories':
+
+      case calories:
         return MaterialPageRoute(
-          builder: (context) => const StepcountScreen(),
+          builder: (context) => const CalorieScreen(),
         );
+
       case waterSleep:
         return MaterialPageRoute(
           builder: (context) => const WaterSleepScreen(),
         );
 
-      case '/exercise':
+      case exercise:
         return MaterialPageRoute(
           builder: (context) => const ExerciseScreen(),
         );
 
-      case '/sub-exercise':
+      case subExercise:
         return MaterialPageRoute(
           builder: (context) => SubExerciseScreen(
             exerciseType: args["type"],
@@ -81,24 +103,24 @@ class RouteManager {
           ),
         );
 
-       case '/exercise-info':
+      case exerciseInfo:
         return MaterialPageRoute(
           builder: (context) => ExerciseInfo(
             item: args["item"],
           ),
         );
 
-      case '/activities':
+      case activities:
         return MaterialPageRoute(
           builder: (context) => const ActivityScreen(),
         );
 
-      case '/leaderboard':
+      case leaderboard:
         return MaterialPageRoute(
           builder: (context) => const LeaderboardScreen(),
         );
 
-      case '/feedback':
+      case feedback:
         return MaterialPageRoute(
           builder: (context) => const FeedbackScreen(),
         );

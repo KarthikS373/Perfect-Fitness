@@ -43,6 +43,9 @@ dependencies:
   smooth_star_rating: ^1.1.1
   liquid_progress_indicator: ^0.4.0
   story_view: ^0.13.2
+  sleek_circular_slider: ^2.0.1
+  form_field_validator: ^1.1.0
+  social_login_buttons: ^1.0.6+2
 
 dev_dependencies:
   flutter_test:
