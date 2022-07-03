@@ -1,3 +1,4 @@
+import 'package:fitness_monitoring/Widgets/Graph/cardioGraph.dart';
 import 'package:flutter/material.dart';
 
 class HeartRateScreen extends StatefulWidget {
@@ -10,8 +11,10 @@ class HeartRateScreen extends StatefulWidget {
 class _HeartRateScreenState extends State<HeartRateScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
+    return const Scaffold(
+      body: Center(
+        child: CardioGraph(),
+      ),
     );
   }
 }
