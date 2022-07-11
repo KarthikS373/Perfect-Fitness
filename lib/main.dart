@@ -1,9 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:fitness_monitoring/Utils/Routes/routes.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
+import 'package:fitness_monitoring/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+// Platform  Firebase App Id
+// android   1:331295253172:android:6342c9cbe7009abb152de1
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 

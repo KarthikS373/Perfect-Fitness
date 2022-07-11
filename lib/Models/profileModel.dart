@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Profile {
   final String name, image;
   final double age, height, weight;

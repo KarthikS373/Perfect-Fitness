@@ -18,6 +18,9 @@ class SignupScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(
+              height: 69,
+            ),
             Image.asset(
               "assets/Images/Logo.png",
               width: 130,
@@ -56,13 +59,19 @@ class SignupScreen extends StatelessWidget {
               children: [
                 SocialLoginButton(
                   buttonType: SocialLoginButtonType.google,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(RouteManager.detailCollection);
+                  },
                   text: "  Google",
                   mode: SocialLoginButtonMode.single,
                 ),
                 SocialLoginButton(
                   buttonType: SocialLoginButtonType.facebook,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(RouteManager.detailCollection);
+                  },
                   text: "  Facebook",
                   mode: SocialLoginButtonMode.single,
                 ),
@@ -197,7 +206,8 @@ class _SignUpFormState extends State<_SignUpForm> {
               onPressed: () {
                 if (_key.currentState!.validate()) {
                   _key.currentState!.save();
-                  Navigator.of(context).pushNamed(RouteManager.detailCollection);
+                  Navigator.of(context)
+                      .pushNamed(RouteManager.detailCollection);
                 }
               },
               child: Text(

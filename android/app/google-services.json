@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "331295253172",
+    "project_id": "perfect-fitness-endsem-2022",
+    "storage_bucket": "perfect-fitness-endsem-2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331295253172:android:6342c9cbe7009abb152de1",
+        "android_client_info": {
+          "package_name": "com.example.perfect_fitness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331295253172-sj43cu7rccprfkjvlga473o0mnh346r6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiiBVzdznNDxuW7ZDohQ3AFJQQJX9iq48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331295253172-sj43cu7rccprfkjvlga473o0mnh346r6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

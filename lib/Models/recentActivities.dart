@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class RecentActivities {
   final String name;
   final DateTime time;

@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +15,7 @@ class WeightPicker extends StatefulWidget {
 }
 
 class _WeightPickerState extends State<WeightPicker> {
-  static const _base = 30;
+  static const num _base = 30;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +28,7 @@ class _WeightPickerState extends State<WeightPicker> {
         ),
         itemExtent: 48,
         magnification: 1.1,
-        onSelectedItemChanged: (int value) {
+        onSelectedItemChanged: (num value) {
           widget.getWeight(value + _base);
         },
         children: List<Widget>.generate(

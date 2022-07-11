@@ -18,7 +18,7 @@ class DetailCollectionScreen extends StatefulWidget {
 }
 
 class _DetailCollectionScreenState extends State<DetailCollectionScreen> {
-  double _weight = 0, _height = 0;
+  num _weight = 0, _height = 0;
   DateTime _date = DateTime.now();
 
   @override
@@ -165,7 +165,7 @@ class _DetailCollectionScreenState extends State<DetailCollectionScreen> {
                         );
                       },
                       child: MaterialSecCard(
-                        borderRadius: 12,
+                        borderRadius: 12.0,
                         child: Text(
                           "$_height cm",
                           style: GoogleFonts.nunito(
@@ -201,7 +201,7 @@ class _DetailCollectionScreenState extends State<DetailCollectionScreen> {
                         );
                       },
                       child: MaterialSecCard(
-                        borderRadius: 12,
+                        borderRadius: 12.0,
                         child: Text(
                           "$_weight Kg",
                           style: GoogleFonts.nunito(
@@ -222,7 +222,7 @@ class _DetailCollectionScreenState extends State<DetailCollectionScreen> {
                 horizontal: 40.0,
               ),
               child: MaterialSecCard(
-                borderRadius: 12,
+                borderRadius: 12.0,
                 width: double.infinity,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

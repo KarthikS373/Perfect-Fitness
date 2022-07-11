@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:fitness_monitoring/Utils/Routes/routes.dart';
 
 class DrawerListOptions {
   final String svgURL;
@@ -13,10 +13,10 @@ class DrawerListOptions {
 }
 
 List<DrawerListOptions> drawerListOptions = [
-  const DrawerListOptions(title: "DashBoard", onTap: ""),
-  const DrawerListOptions(title: "ProfileScreen", onTap: ""),
-  const DrawerListOptions(title: "Exercise", onTap: "/exercise"),
-  const DrawerListOptions(title: "Recent Activity", onTap: ""),
-  const DrawerListOptions(title: "Leaderboard", onTap: "/leaderboard"),
-  const DrawerListOptions(title: "Feedback", onTap: "/feedback"),
+  const DrawerListOptions(title: "DashBoard", onTap: RouteManager.home),
+  const DrawerListOptions(title: "ProfileScreen", onTap: RouteManager.profile),
+  const DrawerListOptions(title: "Exercise", onTap: RouteManager.exercise),
+  const DrawerListOptions(title: "Recent Activity", onTap: RouteManager.home),
+  const DrawerListOptions(title: "Leaderboard", onTap: RouteManager.leaderboard),
+  const DrawerListOptions(title: "Feedback", onTap: RouteManager.feedback),
 ];

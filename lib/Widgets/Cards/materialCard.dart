@@ -11,8 +11,8 @@ class MaterialSecCard extends StatelessWidget {
     this.bgColor = secondaryColor,
     this.borderColor = textColor,
     this.child = const Text("Text"),
-    this.height = null,
-    this.width = null,
+    this.height,
+    this.width,
     this.borderRadius = 25,
   }) : super(key: key);
 

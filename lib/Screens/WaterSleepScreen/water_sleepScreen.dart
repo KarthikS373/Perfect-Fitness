@@ -15,7 +15,7 @@ class _WaterSleepScreenState extends State<WaterSleepScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 0,
+      initialIndex: 1,
       animationDuration: const Duration(
         milliseconds: 500,
       ),
