@@ -4,8 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LoginScreen extends StatelessWidget {
+import '../../Services/authService.dart';
+
+
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
+  final _emailController= TextEditingController();
+  final _passwordController= TextEditingController();
+
+
+  void dispose(){
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +114,7 @@ class LoginScreen extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 10),
                                   width: 300,
                                   child: TextField(
+                                    controller: _emailController,
                                     cursorColor: Colors.grey,
                                     style: const TextStyle(
                                       color: Colors.black54,
@@ -137,6 +157,7 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                   width: 300,
                                   child: TextField(
+                                    controller: _passwordController,
                                     obscureText: true,
                                     cursorColor: Colors.grey,
                                     style: const TextStyle(
@@ -192,9 +213,10 @@ class LoginScreen extends StatelessWidget {
                         bottom: -20,
                         right: 30,
                         child: GestureDetector(
-                          onTapDown: (details) {
-                            Navigator.of(context).popAndPushNamed('/');
-                          },
+                         onTap: () {
+                           final user = AuthServices.signIn(_emailController.text.trim(), _passwordController.text.trim(), context);
+
+                         },
                           child: Container(
                             padding: const EdgeInsets.all(9),
                             height: 50,
