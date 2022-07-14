@@ -3,13 +3,26 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sparkline/flutter_sparkline.dart';
+
+// import 'package:hrtrte/graph.dart';
 import 'package:wakelock/wakelock.dart';
+import 'Utils/Colors.dart';
 import 'chart.dart';
 
+var data = [0.0, 1.0, 2.0, - 1.5];
+
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
+  setHeight() {
+    return SizedBox(
+      height: 20,
+    );
+  }
+
+
   HomePageView createState() {
     return HomePageView();
   }
@@ -56,113 +69,151 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-                flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(18),
-                          ),
-                          child: Stack(
-                            fit: StackFit.expand,
-                            alignment: Alignment.center,
-                            children: <Widget>[
-                              _toggled
-                                  ? AspectRatio(
-                                      aspectRatio:
-                                          _controller.value.aspectRatio,
-                                      child: CameraPreview(_controller),
-                                    )
-                                  : Container(
-                                      padding: const EdgeInsets.all(12),
-                                      alignment: Alignment.center,
-                                      color: Colors.grey,
-                                    ),
-                              Container(
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.all(4),
-                                child: Text(
-                                  _toggled
-                                      ? "Cover both the camera and the flash with your finger"
-                                      : "Camera feed will display here",
-                                  style: TextStyle(
-                                      backgroundColor: _toggled
-                                          ? Colors.white
-                                          : Colors.transparent),
-                                  textAlign: TextAlign.center,
+      backgroundColor: secondaryColor,
+      body: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: SafeArea(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(18),
+                            ),
+                            child: Stack(
+                              fit: StackFit.expand,
+                              alignment: Alignment.center,
+                              children: <Widget>[
+                                _toggled
+                                    ? AspectRatio(
+                                        aspectRatio:
+                                            _controller.value.aspectRatio,
+                                        child: CameraPreview(_controller),
+                                      )
+                                    : Container(
+                                        padding: const EdgeInsets.all(12),
+                                        alignment: Alignment.center,
+                                        color: Colors.grey,
+                                      ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.all(4),
+                                  child: Text(
+                                    _toggled
+                                        ? "Cover both the camera and the flash with your finger"
+                                        : "Camera feed will display here",
+                                    style: TextStyle(
+                                        backgroundColor: _toggled
+                                            ? Colors.white
+                                            : Colors.transparent),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
+                      Expanded(
+                        child: Center(
+                            child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            const Text(
+                              "Estimated BPM",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.grey),
+                            ),
+                            Text(
+                              (_bpm > 30 && _bpm < 150
+                                  ? _bpm.toString()
+                                  : "--"),
+                              style: const TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        )),
+                      ),
+                    ],
+                  )),
+                  Expanded(
+                    child: Center(
+                      child: Transform.scale(
+                        scale: _iconScale,
+                        child: IconButton(
+                          icon: Icon(_toggled
+                              ? Icons.favorite
+                              : Icons.favorite_border),
+                          color: Colors.red,
+                          iconSize: 100,
+                          onPressed: () {
+                            if (_toggled) {
+                              _untoggle();
+                            } else {
+                              _toggle();
+                            }
+                          },
+                        ),
+                      ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Center(
-                          child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          const Text(
-                            "Estimated BPM",
-                            style: TextStyle(fontSize: 18, color: Colors.grey),
-                          ),
-                          Text(
-                            (_bpm > 30 && _bpm < 150 ? _bpm.toString() : "--"),
-                            style: const TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )),
-                    ),
-                  ],
-                )),
-            Expanded(
-              flex: 1,
-              child: Center(
-                child: Transform.scale(
-                  scale: _iconScale,
-                  child: IconButton(
-                    icon:
-                        Icon(_toggled ? Icons.favorite : Icons.favorite_border),
-                    color: Colors.red,
-                    iconSize: 128,
-                    onPressed: () {
-                      if (_toggled) {
-                        _untoggle();
-                      } else {
-                        _toggle();
-                      }
-                    },
                   ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                margin: const EdgeInsets.all(12),
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(18),
+                  Expanded(
+                    child: Container(
+                      height: 100,
+                      margin: const EdgeInsets.all(5),
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(18),
+                          ),
+                          color: Colors.black),
+                      child: Chart(_data),
                     ),
-                    color: Colors.black),
-                child: Chart(_data),
+                  ),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
+                  const Text("Previous Heart Rates",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                      )),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 20.0),
+                    width: MediaQuery.of(context).size.width,
+                    height: 100,
+                    child: Sparkline(
+                      data: data,
+                      sharpCorners: true,
+                      pointsMode: PointsMode.all,
+                      pointColor: Colors.red,
+                      pointSize: 10.0,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -258,6 +309,7 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
     // Ofc you can also use a Timer object to time the callback of this function
     List<SensorValue> _values;
     double _avg;
+    int x = 0;
     int _n;
     double _m;
     double _threshold;
@@ -292,6 +344,11 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
       if (_counter > 0) {
         _bpm = _bpm / _counter;
         print(_bpm);
+        x++;
+        if (x == 5) {
+          _untoggle();
+          data.add((_bpm - 70).toDouble());
+        }
         setState(() {
           this._bpm = ((1 - _alpha) * this._bpm + _alpha * _bpm).toInt();
         });
