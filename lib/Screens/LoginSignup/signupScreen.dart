@@ -1,3 +1,4 @@
+
 import 'package:fitness_monitoring/Utils/Routes/routes.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:fitness_monitoring/Widgets/Fields/decorationTextFormField.dart';
@@ -5,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
+
+import '../../Services/firebase_auth_methods.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -53,29 +56,6 @@ class SignupScreen extends StatelessWidget {
             ),
             const SizedBox(
               height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SocialLoginButton(
-                  buttonType: SocialLoginButtonType.google,
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(RouteManager.detailCollection);
-                  },
-                  text: "  Google",
-                  mode: SocialLoginButtonMode.single,
-                ),
-                SocialLoginButton(
-                  buttonType: SocialLoginButtonType.facebook,
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(RouteManager.detailCollection);
-                  },
-                  text: "  Facebook",
-                  mode: SocialLoginButtonMode.single,
-                ),
-              ],
             ),
           ],
         ),
@@ -206,6 +186,7 @@ class _SignUpFormState extends State<_SignUpForm> {
               onPressed: () {
                 if (_key.currentState!.validate()) {
                   _key.currentState!.save();
+                  firebaseAuth.signUpWithEmail(email: _email.text, password: _passwd.text, context: context);
                   Navigator.of(context)
                       .pushNamed(RouteManager.detailCollection);
                 }

@@ -3,9 +3,7 @@ import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../Services/authService.dart';
-
+import '../../Services/firebase_auth_methods.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,9 +13,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
-  final _emailController= TextEditingController();
-  final _passwordController= TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
 
   void dispose(){
@@ -75,7 +72,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: size.height * .3,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(20),
+                      ),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(.2),
@@ -213,10 +212,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         bottom: -20,
                         right: 30,
                         child: GestureDetector(
-                         onTap: () {
-                           final user = AuthServices.signIn(_emailController.text.trim(), _passwordController.text.trim(), context);
-
-                         },
+                          onTap: () {
+                          firebaseAuth.loginWithEmail(email: _emailController.text, password: _passwordController.text, context: context);
+                          },
                           child: Container(
                             padding: const EdgeInsets.all(9),
                             height: 50,

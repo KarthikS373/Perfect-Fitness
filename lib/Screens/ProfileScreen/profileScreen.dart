@@ -1,9 +1,11 @@
 import 'package:fitness_monitoring/Models/userProfiles.dart';
+import 'package:fitness_monitoring/Services/firebase_auth_methods.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:fitness_monitoring/Widgets/Buttons/containerButton.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -344,7 +346,9 @@ class ProfileScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               primary: Colors.red,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              context.read< FirebaseAuthServices>().signOut(context);
+                            },
                             child: Text(
                               "logout",
                               style: GoogleFonts.aBeeZee(
@@ -352,6 +356,8 @@ class ProfileScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+
+
                         ],
                       ),
                     ),
