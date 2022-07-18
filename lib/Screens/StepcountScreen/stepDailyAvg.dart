@@ -14,7 +14,6 @@ class StepDailyAvg extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.28,
         width: MediaQuery.of(context).size.width * 0.95,
         decoration: BoxDecoration(
           color: secondaryColor,
@@ -41,7 +40,7 @@ class StepDailyAvg extends StatelessWidget {
               height: 8,
             ),
             SizedBox(
-              height: 150,
+              height: 160,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
