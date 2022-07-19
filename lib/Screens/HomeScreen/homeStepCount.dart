@@ -1,8 +1,11 @@
+import 'package:fitness_monitoring/Models/Providers/healthProvider.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
+
+import 'package:provider/provider.dart';
 
 class HomeStepCount extends StatefulWidget {
   const HomeStepCount({Key? key}) : super(key: key);
@@ -69,21 +72,25 @@ class _HomeStepCountState extends State<HomeStepCount> {
                   ),
                 ),
               ),
-              Positioned(
-                top: 100,
-                left: 145,
-                right: 145,
-                child: Column(
-                  children: [
-                    const Icon(Icons.directions_run_sharp, size: 32),
-                    Text(
-                      "1024",
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                )
+              Consumer<HealthProvider>(
+                builder: (ctx, value, child) {
+                  return Positioned(
+                      top: 100,
+                      left: 145,
+                      right: 145,
+                      child: Column(
+                        children: [
+                          const Icon(Icons.directions_run_sharp, size: 32),
+                          Text(
+                            value.getSteps.toString(),
+                            style: GoogleFonts.poppins(
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      )
+                  );
+                },
               ),
             ],
           )
