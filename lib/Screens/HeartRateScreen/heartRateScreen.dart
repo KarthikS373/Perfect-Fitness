@@ -349,7 +349,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
         _bpm = _bpm / _counter;
         print(_bpm);
         x++;
-        if (x == 2) {
+        if (x == 7) {
           _untoggle();
 
         }
