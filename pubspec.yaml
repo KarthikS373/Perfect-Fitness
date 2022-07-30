@@ -53,6 +53,7 @@ dependencies:
   wakelock: ^0.6.1+2
   camera: ^0.9.8+1
   flutter_sparkline: ^0.1.0
+  syncfusion_flutter_charts: ^20.2.40
 
 dev_dependencies:
   flutter_test:

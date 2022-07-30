@@ -18,6 +18,12 @@ class StepcountScreen extends StatefulWidget {
 }
 
 class _StepcountScreenState extends State<StepcountScreen> {
+  int name = 0;
+  TextEditingController controller = TextEditingController();
+  late SharedPreferences prefs;
+
+  int stps = 0;
+  int finalval = 0;
   double x = 0.0;
   double y = 0.0;
   double z = 0.0;
@@ -26,9 +32,16 @@ class _StepcountScreenState extends State<StepcountScreen> {
   double calories = 0.0;
   double addValue = 0.025;
   int steps = 0;
+  int cc = 0;
   double previousDistance = 0.0;
   double distance = 0.0;
 
+  @override
+  void initState()
+  {
+    super.initState();
+    retrieve();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,9 +55,13 @@ class _StepcountScreenState extends State<StepcountScreen> {
                 y = snapShort.data!.y;
                 z = snapShort.data!.z;
                 distance = getValue(x, y, z);
+                 value.stepps = name;
                 if (distance > 6) {
                   value.incrementSteps();
+                  name = value.getSteps;
+                  save();
                 }
+
                 calories = calculateCalories(steps);
                 duration = calculateDuration(steps);
                 miles = calculateMiles(steps);
@@ -107,8 +124,17 @@ class _StepcountScreenState extends State<StepcountScreen> {
                             vertical: 8,
                             horizontal: 4,
                           ),
-                          child: StepCountBar(value.getSteps, miles, calories, duration),
+                          child: StepCountBar(name, miles, calories, duration, value,name),
                         ),
+                      IconButton(
+                          onPressed: ()
+                          {
+                             delete();
+                            print("kk");
+                          },
+
+                          icon: Icon( Icons.refresh, size: 35.0)),
+
                         const StepDailyAvg(),
                       ],
                     ),
@@ -157,4 +183,29 @@ class _StepcountScreenState extends State<StepcountScreen> {
     double caloriesValue = (steps * 0.0566);
     return caloriesValue;
   }
+
+  void save() async {
+    prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('text', name);
+    // retrieve();
+  }
+
+  retrieve() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+     name = prefs.getInt('text')!;
+    });
+  }
+
+  // reset() async{
+  //   prefs = await SharedPreferences.getInstance();
+  //   await prefs.setInt('text', 0);
+  //   // retrieve();
+  // }
+   delete() async{
+    prefs = await SharedPreferences.getInstance();
+    prefs.remove('text');
+    name = 0;
+    setState(() {});
+   }
 }

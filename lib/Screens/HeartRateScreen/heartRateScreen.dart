@@ -7,6 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../../Models/Providers/healthProvider.dart';
@@ -27,6 +29,13 @@ class _HeartRateScreenState extends State<HeartRateScreen>
       height: 20,
     );
   }
+  // final List<HeartRateData> chartData = [
+  //   HeartRateData(10, 10.0 , Colors.red),
+  //   HeartRateData(20, 30.0 , Colors.blue),
+  //   HeartRateData(30, 20.0 , Colors.green),
+  //   HeartRateData(40, 50.0 , Colors.yellow),
+  //   HeartRateData(50, 40.0 , Colors.pink),
+  // ];
 
   bool _toggled = false; // toggle button value
   final List<SensorValue> _data = <SensorValue>[]; // array to store the values
@@ -41,6 +50,8 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   late double _avg; // store the average value during calculation
   late DateTime _now; // store the now Datetime
   late Timer _timer; // timer for image processing
+  late SharedPreferences prefs;
+
 
   @override
   void initState() {
@@ -163,7 +174,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                                 if (_toggled) {
                                   _untoggle();
                                 } else {
-                                  value.heartBeatListener(_bpm , value.d);
+                                  value.heartBeatListener(_bpm);
                                   _toggle();
                                 }
                               },
@@ -203,13 +214,18 @@ class _HeartRateScreenState extends State<HeartRateScreen>
                       Container(
                         margin: const EdgeInsets.only(bottom: 20.0),
                         width: MediaQuery.of(context).size.width,
-                        height: 100,
-                        child: Sparkline(
-                          data: value.d,
-                          sharpCorners: true,
-                          pointsMode: PointsMode.all,
-                          pointColor: Colors.red,
-                          pointSize: 10.0,
+                        height: 500,
+                        // child: Sparkline(
+                        //   data: value.d,
+                        //   sharpCorners: true,
+                        //   pointsMode: PointsMode.all,
+                        //   pointColor: Colors.red,
+                        //   pointSize: 10.0,
+                        child : SfCartesianChart(
+                          title: ChartTitle(text : 'Heart Rates'),
+                          series : <ChartSeries>[
+                            ColumnSeries<HeartRateData , int >(dataSource: value.chartData, xValueMapper: (HeartRateData data, _) => data.ratss, yValueMapper: (HeartRateData data, _) => data.rats)
+                          ],
                         ),
                       ),
                     ],
@@ -250,6 +266,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   }
 
   void _untoggle() {
+
     _disposeController();
     Wakelock.disable();
     _animationController.stop();
@@ -349,7 +366,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
         _bpm = _bpm / _counter;
         print(_bpm);
         x++;
-        if (x == 2) {
+        if (x == 7) {
           _untoggle();
 
         }
@@ -369,4 +386,12 @@ class _HeartRateScreenState extends State<HeartRateScreen>
     properties
         .add(DiagnosticsProperty<CameraController>('_controller', _controller));
   }
+
 }
+  class HeartRateData{
+       late final  int ratss;
+       late final double rats;
+       late final Color color;
+
+       HeartRateData(this.ratss , this.rats , this.color);
+  }

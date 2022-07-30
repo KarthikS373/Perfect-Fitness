@@ -2,6 +2,7 @@ import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../Models/Providers/healthProvider.dart';
@@ -16,6 +17,9 @@ class CalorieScreen extends StatefulWidget {
 class _CalorieScreenState extends State<CalorieScreen> {
   var _calorie = 0;
   final _textController = TextEditingController();
+  late SharedPreferences prefs1;
+  double name1 = 0.0;
+  double stps1 = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +67,7 @@ class _CalorieScreenState extends State<CalorieScreen> {
                       children: [
                         Center(
                           child: Text(
-                            "${(value.getSteps * 0.045).toStringAsPrecision(2)} cal",
+                            "${( value.getSteps * 0.045 ).toStringAsPrecision(2)} cal",
                             style: GoogleFonts.nunito(
                               color: textColor,
                               fontSize: 30.0,
@@ -85,6 +89,9 @@ class _CalorieScreenState extends State<CalorieScreen> {
                     setState(
                           () {
                         _calorie = value.getSteps;
+                        save1();
+                        retrieve1();
+                        stps1 = value.getSteps * 0.045;
                       },
                     );
                     _textController.clear();
@@ -119,5 +126,19 @@ class _CalorieScreenState extends State<CalorieScreen> {
         }
     )
     );
+  }
+
+  void save1() async {
+    prefs1 = await SharedPreferences.getInstance();
+    prefs1.setDouble('text1', stps1);
+    retrieve1();
+  }
+
+  retrieve1() async {
+    prefs1 = await SharedPreferences.getInstance();
+
+    setState(() {
+      name1 = prefs1.getDouble('text1')!;
+    });
   }
 }
