@@ -6,9 +6,14 @@ import 'package:fitness_monitoring/Widgets/Graph/cardioChart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:wakelock/wakelock.dart';
 
-var data = [0.0, 1.0, 2.0, -1.5];
+import '../../Models/Providers/healthProvider.dart';
+
+// var data = [0.0, 1.0, 2.0, -1.5];
 
 class HeartRateScreen extends StatefulWidget {
   const HeartRateScreen({Key? key}) : super(key: key);
@@ -24,6 +29,13 @@ class _HeartRateScreenState extends State<HeartRateScreen>
       height: 20,
     );
   }
+  // final List<HeartRateData> chartData = [
+  //   HeartRateData(10, 10.0 , Colors.red),
+  //   HeartRateData(20, 30.0 , Colors.blue),
+  //   HeartRateData(30, 20.0 , Colors.green),
+  //   HeartRateData(40, 50.0 , Colors.yellow),
+  //   HeartRateData(50, 40.0 , Colors.pink),
+  // ];
 
   bool _toggled = false; // toggle button value
   final List<SensorValue> _data = <SensorValue>[]; // array to store the values
@@ -38,6 +50,8 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   late double _avg; // store the average value during calculation
   late DateTime _now; // store the now Datetime
   late Timer _timer; // timer for image processing
+  late SharedPreferences prefs;
+
 
   @override
   void initState() {
@@ -65,153 +79,162 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: secondaryColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: SafeArea(
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        backgroundColor: secondaryColor,
+        body: Consumer<HealthProvider>(
+            builder: (context, value, child) {
+          return CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: SafeArea(
+                  child: Column(
                     children: <Widget>[
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(18),
-                            ),
-                            child: Stack(
-                              fit: StackFit.expand,
-                              alignment: Alignment.center,
-                              children: <Widget>[
-                                _toggled
-                                    ? AspectRatio(
-                                        aspectRatio:
-                                            _controller.value.aspectRatio,
-                                        child: CameraPreview(_controller),
-                                      )
-                                    : Container(
-                                        padding: const EdgeInsets.all(12),
-                                        alignment: Alignment.center,
-                                        color: Colors.grey,
-                                      ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  padding: const EdgeInsets.all(4),
-                                  child: Text(
-                                    _toggled
-                                        ? "Cover both the camera and the flash with your finger"
-                                        : "Camera feed will display here",
-                                    style: TextStyle(
-                                        backgroundColor: _toggled
-                                            ? Colors.white
-                                            : Colors.transparent),
-                                    textAlign: TextAlign.center,
-                                  ),
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(18),
                                 ),
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  alignment: Alignment.center,
+                                  children: <Widget>[
+                                    _toggled
+                                        ? AspectRatio(
+                                            aspectRatio:
+                                                _controller.value.aspectRatio,
+                                            child: CameraPreview(_controller),
+                                          )
+                                        : Container(
+                                            padding: const EdgeInsets.all(12),
+                                            alignment: Alignment.center,
+                                            color: Colors.grey,
+                                          ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.all(4),
+                                      child: Text(
+                                        _toggled
+                                            ? "Cover both the camera and the flash with your finger"
+                                            : "Camera feed will display here",
+                                        style: TextStyle(
+                                            backgroundColor: _toggled
+                                                ? Colors.white
+                                                : Colors.transparent),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Center(
+                                child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                const Text(
+                                  "Estimated BPM",
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.grey),
+                                ),
+                                Text(
+                                  (_bpm > 30 && _bpm < 150
+                                      ? _bpm.toString()
+                                      : "--"),
+                                  style: const TextStyle(
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+
                               ],
+                            )),
+                          ),
+                        ],
+                      )),
+                      Expanded(
+                        child: Center(
+                          child: Transform.scale(
+                            scale: _iconScale,
+                            child: IconButton(
+                              icon: Icon(_toggled
+                                  ? Icons.favorite
+                                  : Icons.favorite_border),
+                              color: Colors.red,
+                              iconSize: 100,
+                              onPressed: () {
+                                if (_toggled) {
+                                  _untoggle();
+                                } else {
+                                  value.heartBeatListener(_bpm);
+                                  _toggle();
+                                }
+                              },
                             ),
                           ),
                         ),
                       ),
                       Expanded(
-                        child: Center(
-                            child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            const Text(
-                              "Estimated BPM",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.grey),
-                            ),
-                            Text(
-                              (_bpm > 30 && _bpm < 150
-                                  ? _bpm.toString()
-                                  : "--"),
-                              style: const TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                          ],
-                        )),
-                      ),
-                    ],
-                  )),
-                  Expanded(
-                    child: Center(
-                      child: Transform.scale(
-                        scale: _iconScale,
-                        child: IconButton(
-                          icon: Icon(_toggled
-                              ? Icons.favorite
-                              : Icons.favorite_border),
-                          color: Colors.red,
-                          iconSize: 100,
-                          onPressed: () {
-                            if (_toggled) {
-                              _untoggle();
-                            } else {
-                              _toggle();
-                            }
-                          },
+                        child: Container(
+                          height: 100,
+                          margin: const EdgeInsets.all(5),
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(18),
+                              ),
+                              color: Colors.black),
+                          child: Chart(_data),
                         ),
                       ),
-                    ),
+                      const SizedBox(
+                        height: 100,
+                      ),
+                      const Divider(
+                        color: Colors.grey,
+                      ),
+                      const Text("Previous Heart Rates",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                          )),
+                      const Divider(
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(
+                        height: 100,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 20.0),
+                        width: MediaQuery.of(context).size.width,
+                        height: 500,
+                        // child: Sparkline(
+                        //   data: value.d,
+                        //   sharpCorners: true,
+                        //   pointsMode: PointsMode.all,
+                        //   pointColor: Colors.red,
+                        //   pointSize: 10.0,
+                        child : SfCartesianChart(
+                          title: ChartTitle(text : 'Heart Rates'),
+                          series : <ChartSeries>[
+                            ColumnSeries<HeartRateData , int >(dataSource: value.chartData, xValueMapper: (HeartRateData data, _) => data.ratss, yValueMapper: (HeartRateData data, _) => data.rats)
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Container(
-                      height: 100,
-                      margin: const EdgeInsets.all(5),
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(18),
-                          ),
-                          color: Colors.black),
-                      child: Chart(_data),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                  ),
-                  const Text("Previous Heart Rates",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                      )),
-                  const Divider(
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 20.0),
-                    width: MediaQuery.of(context).size.width,
-                    height: 100,
-                    child: Sparkline(
-                      data: data,
-                      sharpCorners: true,
-                      pointsMode: PointsMode.all,
-                      pointColor: Colors.red,
-                      pointSize: 10.0,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ],
-      ),
-    );
+            ],
+          );
+        }));
   }
 
   void _clearData() {
@@ -243,6 +266,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   }
 
   void _untoggle() {
+
     _disposeController();
     Wakelock.disable();
     _animationController.stop();
@@ -296,6 +320,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
     });
   }
 
+
   void _updateBPM() async {
     // Bear in mind that the method used to calculate the BPM is very rudimentar
     // feel free to improve it :)
@@ -343,7 +368,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
         x++;
         if (x == 7) {
           _untoggle();
-          data.add((_bpm - 70).toDouble());
+
         }
         setState(() {
           this._bpm = ((1 - _alpha) * this._bpm + _alpha * _bpm).toInt();
@@ -361,4 +386,12 @@ class _HeartRateScreenState extends State<HeartRateScreen>
     properties
         .add(DiagnosticsProperty<CameraController>('_controller', _controller));
   }
+
 }
+  class HeartRateData{
+       late final  int ratss;
+       late final double rats;
+       late final Color color;
+
+       HeartRateData(this.ratss , this.rats , this.color);
+  }
