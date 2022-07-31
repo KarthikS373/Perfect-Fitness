@@ -1,11 +1,10 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_monitoring/Utils/Routes/routes.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:fitness_monitoring/Widgets/Fields/decorationTextFormField.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:social_login_buttons/social_login_buttons.dart';
 
 import '../../Services/firebase_auth_methods.dart';
 
@@ -75,14 +74,18 @@ class _SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<_SignUpForm> {
   final _key = GlobalKey<FormState>();
-
   final _name = TextEditingController();
-
   final _email = TextEditingController();
-
   final _passwd = TextEditingController();
-
   final _cpasswd = TextEditingController();
+
+  final _auth = FirebaseAuth.instance;
+  String? errorMessage;
+  String? userEmail = "";
+  String? userImageURL;
+  String? userName = "Login";
+  bool signedOut = true;
+  bool signedIn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +189,10 @@ class _SignUpFormState extends State<_SignUpForm> {
               onPressed: () {
                 if (_key.currentState!.validate()) {
                   _key.currentState!.save();
-                  firebaseAuth.signUpWithEmail(email: _email.text, password: _passwd.text, context: context);
+                  firebaseAuth.signUpWithEmail(
+                      email: _email.text,
+                      password: _passwd.text,
+                      context: context);
                   Navigator.of(context)
                       .pushNamed(RouteManager.detailCollection);
                 }
@@ -196,6 +202,11 @@ class _SignUpFormState extends State<_SignUpForm> {
                 style: GoogleFonts.poppins(),
               ),
             ),
+
+            //  start
+            const SizedBox(height: 25),
+
+            //  end
           ],
         ),
       ),

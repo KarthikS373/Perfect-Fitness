@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_monitoring/Screens/HomeScreen/HomeScreen.dart';
 
 // import 'package:firebase_auth_demo/Utils/showOTPDialog.dart';
 import 'package:fitness_monitoring/Utils/showSnackbar.dart';
@@ -53,6 +54,9 @@ class FirebaseAuthServices {
       );
       if (!user.emailVerified) {
         await sendEmailVerification(context);
+      } else {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const HomeScreen()));
       }
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
@@ -68,7 +72,6 @@ class FirebaseAuthServices {
       showSnackBar(context, e.message!); // Display error message
     }
   }
-
 
   // SIGN OUT
   Future<void> signOut(BuildContext context) async {
