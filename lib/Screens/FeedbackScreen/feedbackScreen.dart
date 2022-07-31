@@ -165,7 +165,12 @@ class FeedbackScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text("Feedback Submitted"),
+                            ));
+                          },
                           icon: const Icon(
                             Icons.arrow_forward,
                             color: greenTextColor,
