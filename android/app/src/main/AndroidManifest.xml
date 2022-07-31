@@ -3,7 +3,7 @@
    <application
         android:label="PureFit"
         android:name="${applicationName}"
-        android:icon="assets/Logo.png">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"
