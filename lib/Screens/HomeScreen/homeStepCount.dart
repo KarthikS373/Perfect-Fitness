@@ -43,41 +43,27 @@ class _HomeStepCountState extends State<HomeStepCount> {
           const SizedBox(
             height: 15,
           ),
-          Stack(
+        Consumer<HealthProvider>(
+        builder: (ctx, value, child) {
+          return Stack(
             children: [
               SizedBox(
-                height: 200,
-                child: PieChart(
-                  PieChartData(
-                    sections: [
-                      PieChartSectionData(
-                        color: Colors.grey.withOpacity(0.1),
-                        value: 40,
-                        showTitle: false,
-                        radius: 5,
-                      ),
-                      PieChartSectionData(
-                        color: greenTextColor,
-                        value: 50,
-                        showTitle: false,
-                        radius: 10,
-                      ),
-                      PieChartSectionData(
-                        color: Colors.grey.withOpacity(0.1),
-                        value: 25,
-                        showTitle: false,
-                        radius: 5,
-                      ),
-                    ],
-                  ),
-                ),
+                  height: 200,
+                  width: 200,
+                  child: CircularProgressIndicator(
+                    value: (value.getSteps * 1.00)/100,
+                    backgroundColor: Colors.grey.withOpacity(0.1),
+                    valueColor: const AlwaysStoppedAnimation(greenTextColor),
+                    strokeWidth: 8,
+
+                  )
               ),
               Consumer<HealthProvider>(
                 builder: (ctx, value, child) {
                   return Positioned(
-                      top: 100,
-                      left: 145,
-                      right: 145,
+                      top: 90,
+                      left: 75,
+                      right: 75,
                       child: Column(
                         children: [
                           const Icon(Icons.directions_run_sharp, size: 32),
@@ -93,7 +79,11 @@ class _HomeStepCountState extends State<HomeStepCount> {
                 },
               ),
             ],
-          )
+
+          );
+          },
+        )
+
         ],
       ),
     );

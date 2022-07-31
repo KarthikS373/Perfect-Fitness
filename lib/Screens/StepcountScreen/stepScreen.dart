@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../HomeScreen/HomeScreen.dart';
+
 class StepcountScreen extends StatefulWidget {
   const StepcountScreen({Key? key}) : super(key: key);
 
@@ -37,11 +39,11 @@ class _StepcountScreenState extends State<StepcountScreen> {
   double distance = 0.0;
 
   @override
-  void initState()
-  {
+  void initState() {
     super.initState();
     retrieve();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +57,7 @@ class _StepcountScreenState extends State<StepcountScreen> {
                 y = snapShort.data!.y;
                 z = snapShort.data!.z;
                 distance = getValue(x, y, z);
-                 value.stepps = name;
+                value.stepps = name;
                 if (distance > 6) {
                   value.incrementSteps();
                   name = value.getSteps;
@@ -95,27 +97,39 @@ class _StepcountScreenState extends State<StepcountScreen> {
                           alignment: Alignment.centerRight,
                           child: Row(
                             children: [
-                              ClickableTextHeader(
-                                "Today",
-                                true,
-                                () {
-                                  print("This was tapped");
-                                },
+                              Container(
+                                width: 50.0,
+                                height: 50.0,
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25.0)),
+                                  // color: Colors.white,
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(Icons.arrow_back),
+                                  onPressed: () {
+                                    // Navigator.of(context).pop();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomeScreen()),
+                                    );
+                                  },
+                                  color: greenTextColor,
+                                ),
                               ),
-                              ClickableTextHeader(
-                                "Plan",
-                                false,
-                                () {
-                                  print("This was tapped");
-                                },
-                              ),
-                              ClickableTextHeader(
-                                "Daily",
-                                false,
-                                () {
-                                  print("This was tapped");
-                                },
-                              ),
+                                 Expanded(
+                                   // width: double.infinity,
+                                  child: Center(
+                                    child: ClickableTextHeader(
+                                      "Pedometer",
+                                      true,
+                                      () {
+                                        print("This was tapped");
+                                      },
+                                    ),
+                                  ),
+                                ),
                             ],
                           ),
                         ),
@@ -124,17 +138,15 @@ class _StepcountScreenState extends State<StepcountScreen> {
                             vertical: 8,
                             horizontal: 4,
                           ),
-                          child: StepCountBar(name, miles, calories, duration, value,name),
+                          child: StepCountBar(
+                              name, miles, calories, duration, value, name),
                         ),
-                      IconButton(
-                          onPressed: ()
-                          {
-                             delete();
-                            print("kk");
-                          },
-
-                          icon: Icon( Icons.refresh, size: 35.0)),
-
+                        IconButton(
+                            onPressed: () {
+                              delete();
+                              print("kk");
+                            },
+                            icon: Icon(Icons.refresh, size: 35.0)),
                         const StepDailyAvg(),
                       ],
                     ),
@@ -193,7 +205,7 @@ class _StepcountScreenState extends State<StepcountScreen> {
   retrieve() async {
     prefs = await SharedPreferences.getInstance();
     setState(() {
-     name = prefs.getInt('text')!;
+      name = prefs.getInt('text')!;
     });
   }
 
@@ -202,10 +214,44 @@ class _StepcountScreenState extends State<StepcountScreen> {
   //   await prefs.setInt('text', 0);
   //   // retrieve();
   // }
-   delete() async{
+  delete() async {
     prefs = await SharedPreferences.getInstance();
     prefs.remove('text');
     name = 0;
     setState(() {});
-   }
+  }
+}
+
+class AppHeader extends StatelessWidget {
+  const AppHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+      clipper: MyClipper(),
+      child: Container(
+        width: double.infinity,
+        height: 350.0,
+        color: secondaryColor,
+      ),
+    );
+  }
+}
+
+class MyClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(0, size.height - 160);
+    path.quadraticBezierTo(
+        size.width / 2, size.height, size.width, size.height - 170);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
+  }
 }

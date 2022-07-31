@@ -71,9 +71,9 @@ class StepCountBar extends StatelessWidget {
                                     width: 10,
                                   ),
                                   const Icon(
-                                    Icons.edit,
+                                    Icons.directions_walk_outlined,
                                     color: Colors.white,
-                                    size: 20,
+                                    size: 25,
                                   )
                                 ],
                               ),
@@ -116,8 +116,9 @@ class StepCountBar extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: LinearPercentIndicator(
-                    percent: 0.8,
+                    percent: (value.getSteps)/100,
                     progressColor: Colors.green,
+
                     lineHeight: 20,
                     animation: true,
                   ),

@@ -22,6 +22,7 @@ class ClickableTextHeader extends StatelessWidget {
             children: [
               Text(
                 text,
+                textAlign: TextAlign.center,
                 style: GoogleFonts.aBeeZee(
                   color: isActive ? Colors.green : Colors.white,
                   fontWeight: FontWeight.bold,
