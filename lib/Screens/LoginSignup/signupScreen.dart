@@ -1,10 +1,14 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_monitoring/Screens/HomeScreen/HomeScreen.dart';
 import 'package:fitness_monitoring/Utils/Routes/routes.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:fitness_monitoring/Widgets/Fields/decorationTextFormField.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
 import '../../Services/firebase_auth_methods.dart';
@@ -75,14 +79,20 @@ class _SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<_SignUpForm> {
   final _key = GlobalKey<FormState>();
-
   final _name = TextEditingController();
-
   final _email = TextEditingController();
-
   final _passwd = TextEditingController();
-
   final _cpasswd = TextEditingController();
+
+  final _auth = FirebaseAuth.instance;
+  String? errorMessage;
+  String? userEmail = "";
+  String? userImageURL;
+  String? userName = "Login";
+  bool signedOut = true;
+  bool signedIn = false;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -196,12 +206,71 @@ class _SignUpFormState extends State<_SignUpForm> {
                 style: GoogleFonts.poppins(),
               ),
             ),
+
+          //  start
+            const SizedBox(height: 25),
+            Center(
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    if (!signedIn) {
+                      await signInWithGoogle();
+                      setState(() {
+                        signedOut = false;
+                        signedIn = true;
+                      });
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const HomeScreen()));
+                    }
+                  },
+                  style: ButtonStyle(
+                      minimumSize:
+                      MaterialStateProperty.all(const Size(300, 50)),
+                      backgroundColor:
+                      MaterialStateProperty.all(Colors.white),
+                      foregroundColor:
+                      MaterialStateProperty.all(Colors.black),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          side: const BorderSide(color: Colors.white)))),
+                  icon: const FaIcon(FontAwesomeIcons.google,
+                      color: Colors.red),
+                  label: const Text('Login with Google'),
+                )),
+
+          //  end
+
           ],
         ),
       ),
     );
   }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+    await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    userEmail = googleUser?.email;
+    userImageURL = googleUser?.photoUrl;
+    // print(userImageURL);
+    setState(() {
+      userName = googleUser?.displayName;
+    });
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 }
+
 
 class ConfirmPasswdValidator extends TextFieldValidator {
   ConfirmPasswdValidator({String errorText = "Password is not matching"})
@@ -219,3 +288,6 @@ class ConfirmPasswdValidator extends TextFieldValidator {
     }
   }
 }
+
+
+

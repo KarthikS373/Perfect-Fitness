@@ -1,3 +1,5 @@
+import 'package:fitness_monitoring/Screens/HomeScreen/HomeScreen.dart';
+import 'package:fitness_monitoring/Screens/LoginSignup/forgotPassword.dart';
 import 'package:fitness_monitoring/Utils/Routes/routes.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -198,11 +200,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-                              const Text(
-                                'Forgot Details',
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                ),
+                              TextButton(
+                                  child: const Text(
+                                    "Forgot Password?",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  onPressed: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) => const forgotPasswordScreen())
+                                  ),
                               ),
                             ],
                           ),
@@ -214,6 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: GestureDetector(
                           onTap: () {
                           firebaseAuth.loginWithEmail(email: _emailController.text, password: _passwordController.text, context: context);
+
                           },
                           child: Container(
                             padding: const EdgeInsets.all(9),
@@ -233,9 +240,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: const Icon(
                               Icons.chevron_right,
                             ),
+                            ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ),
