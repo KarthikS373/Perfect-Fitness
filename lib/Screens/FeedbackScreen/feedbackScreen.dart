@@ -3,6 +3,8 @@ import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
+import '../HomeScreen/HomeScreen.dart';
+
 const kPrimaryColor = Color(0XFF2DBB54);
 const kTextColor = Color(0XFF303030);
 const kTextLightColor = Color(0XFFD9D9D9);
@@ -163,7 +165,12 @@ class FeedbackScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text("Feedback Submitted"),
+                            ));
+                          },
                           icon: const Icon(
                             Icons.arrow_forward,
                             color: greenTextColor,
@@ -248,8 +255,13 @@ class CustomAppBar extends StatelessWidget {
           child: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+              );
             },
+
             color: greenTextColor,
           ),
         ),

@@ -153,7 +153,7 @@ class _DetailCollectionScreenState extends State<DetailCollectionScreen> {
                           child: HeightPicker(
                             getHeight: (height) {
                               setState(
-                                () {
+                                    () {
                                   _height = height;
                                 },
                               );
@@ -189,7 +189,7 @@ class _DetailCollectionScreenState extends State<DetailCollectionScreen> {
                           child: WeightPicker(
                             getWeight: (weight) {
                               setState(
-                                () {
+                                    () {
                                   _weight = weight;
                                 },
                               );
@@ -243,7 +243,7 @@ class _DetailCollectionScreenState extends State<DetailCollectionScreen> {
                           child: DatePicker(
                             getDate: (date) {
                               setState(
-                                () {
+                                    () {
                                   _date = date;
                                 },
                               );

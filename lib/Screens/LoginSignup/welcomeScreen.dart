@@ -36,7 +36,7 @@ class WelcomeScreen extends StatelessWidget {
                             width: 130,
                           ),
                           const Text(
-                            'Perfect Fitness',
+                            'PureFit',
                             style: TextStyle(
                               fontSize: 29,
                               color: Colors.white,

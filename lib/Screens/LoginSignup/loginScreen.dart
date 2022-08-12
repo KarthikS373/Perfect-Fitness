@@ -1,11 +1,29 @@
+import 'package:fitness_monitoring/Screens/HomeScreen/HomeScreen.dart';
+import 'package:fitness_monitoring/Screens/LoginSignup/forgotPassword.dart';
 import 'package:fitness_monitoring/Utils/Routes/routes.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../Services/firebase_auth_methods.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+
+  void dispose(){
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +58,12 @@ class LoginScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                           children: <TextSpan>[
-                        TextSpan(
-                            text: ' Fitness partner',
-                            style: TextStyle(
-                              color: Colors.white54,
-                            ))
-                      ])),
+                            TextSpan(
+                                text: ' Fitness partner',
+                                style: TextStyle(
+                                  color: Colors.white54,
+                                ))
+                          ])),
                 ),
                 SizedBox(
                   width: size.width,
@@ -56,7 +74,9 @@ class LoginScreen extends StatelessWidget {
                   height: size.height * .3,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(20),
+                      ),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(.2),
@@ -95,6 +115,7 @@ class LoginScreen extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 10),
                                   width: 300,
                                   child: TextField(
+                                    controller: _emailController,
                                     cursorColor: Colors.grey,
                                     style: const TextStyle(
                                       color: Colors.black54,
@@ -137,6 +158,7 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                   width: 300,
                                   child: TextField(
+                                    controller: _passwordController,
                                     obscureText: true,
                                     cursorColor: Colors.grey,
                                     style: const TextStyle(
@@ -178,10 +200,14 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const Text(
-                                'Forgot Details',
-                                style: TextStyle(
-                                  color: Colors.black54,
+                              TextButton(
+                                child: const Text(
+                                  "Forgot Password?",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                onPressed: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) => const forgotPasswordScreen())
                                 ),
                               ),
                             ],
@@ -192,8 +218,9 @@ class LoginScreen extends StatelessWidget {
                         bottom: -20,
                         right: 30,
                         child: GestureDetector(
-                          onTapDown: (details) {
-                            Navigator.of(context).popAndPushNamed('/');
+                          onTap: () {
+                            firebaseAuth.loginWithEmail(email: _emailController.text, password: _passwordController.text, context: context);
+
                           },
                           child: Container(
                             padding: const EdgeInsets.all(9),

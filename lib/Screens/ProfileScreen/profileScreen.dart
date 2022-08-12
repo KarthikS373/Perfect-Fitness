@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../LoginSignup/loginScreen.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -317,19 +319,27 @@ class ProfileScreen extends StatelessWidget {
                                 Card(
                                   color: secondaryColor,
                                   child: Container(
-                                    padding: const EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(1),
                                     decoration: BoxDecoration(
                                       color: secondaryColor,
                                       borderRadius: BorderRadius.circular(25),
                                     ),
                                     child: Align(
                                       alignment: Alignment.center,
-                                      child: Text(
-                                        "Recent Activities",
+                                      child: ElevatedButton(
+                                       style: ElevatedButton.styleFrom(
+                                         primary: secondaryColor,
+                                       ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child : Text("Dashboard",
                                         style: GoogleFonts.poppins(
                                           fontSize: 16,
                                           color: textColor,
                                         ),
+                                        ),
+
                                       ),
                                     ),
                                   ),
@@ -344,7 +354,13 @@ class ProfileScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               primary: Colors.red,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()),
+                              );
+                            },
                             child: Text(
                               "logout",
                               style: GoogleFonts.aBeeZee(

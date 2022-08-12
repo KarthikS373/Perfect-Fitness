@@ -1,12 +1,16 @@
 import 'dart:math';
 
+import 'package:fitness_monitoring/Models/Providers/healthProvider.dart';
 import 'package:fitness_monitoring/Screens/StepcountScreen/stepCountBar.dart';
 import 'package:fitness_monitoring/Screens/StepcountScreen/stepDailyAvg.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:fitness_monitoring/Widgets/Text/clickableTextHeader.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../HomeScreen/HomeScreen.dart';
 
 class StepcountScreen extends StatefulWidget {
   const StepcountScreen({Key? key}) : super(key: key);
@@ -16,6 +20,12 @@ class StepcountScreen extends StatefulWidget {
 }
 
 class _StepcountScreenState extends State<StepcountScreen> {
+  int name = 0;
+  TextEditingController controller = TextEditingController();
+  late SharedPreferences prefs;
+
+  int stps = 0;
+  int finalval = 0;
   double x = 0.0;
   double y = 0.0;
   double z = 0.0;
@@ -24,92 +34,126 @@ class _StepcountScreenState extends State<StepcountScreen> {
   double calories = 0.0;
   double addValue = 0.025;
   int steps = 0;
+  int cc = 0;
   double previousDistance = 0.0;
   double distance = 0.0;
 
   @override
+  void initState() {
+    super.initState();
+    retrieve();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<AccelerometerEvent>(
-        stream: SensorsPlatform.instance.accelerometerEvents,
-        builder: (context, snapShort) {
-          if (snapShort.hasData) {
-            x = snapShort.data!.x;
-            y = snapShort.data!.y;
-            z = snapShort.data!.z;
-            distance = getValue(x, y, z);
-            if (distance > 6) {
-              steps++;
-            }
-            calories = calculateCalories(steps);
-            duration = calculateDuration(steps);
-            miles = calculateMiles(steps);
-          }
-          return Stack(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      bgColor,
-                      bgColor,
-                      Colors.black12,
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 1.55,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: kToolbarHeight,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Row(
-                        children: [
-                          ClickableTextHeader(
-                            "Today",
-                            true,
-                            () {
-                              print("This was tapped");
-                            },
-                          ),
-                          ClickableTextHeader(
-                            "Plan",
-                            false,
-                            () {
-                              print("This was tapped");
-                            },
-                          ),
-                          ClickableTextHeader(
-                            "Daily",
-                            false,
-                            () {
-                              print("This was tapped");
-                            },
-                          ),
+      body: Consumer<HealthProvider>(
+        builder: (context, value, child) {
+          return StreamBuilder<AccelerometerEvent>(
+            stream: SensorsPlatform.instance.accelerometerEvents,
+            builder: (context, snapShort) {
+              if (snapShort.hasData) {
+                x = snapShort.data!.x;
+                y = snapShort.data!.y;
+                z = snapShort.data!.z;
+                distance = getValue(x, y, z);
+                value.stepps = name;
+                if (distance > 6) {
+                  value.incrementSteps();
+                  name = value.getSteps;
+                  save();
+                }
+
+                calories = calculateCalories(steps);
+                duration = calculateDuration(steps);
+                miles = calculateMiles(steps);
+              }
+              return Stack(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          bgColor,
+                          bgColor,
+                          Colors.black12,
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 4,
-                      ),
-                      child: StepCountBar(steps, miles, calories, duration),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 1.55,
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: kToolbarHeight,
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 50.0,
+                                height: 50.0,
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25.0)),
+                                  // color: Colors.white,
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(Icons.arrow_back),
+                                  onPressed: () {
+                                    // Navigator.of(context).pop();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomeScreen()),
+                                    );
+                                  },
+                                  color: greenTextColor,
+                                ),
+                              ),
+                                 Expanded(
+                                   // width: double.infinity,
+                                  child: Center(
+                                    child: ClickableTextHeader(
+                                      "Pedometer",
+                                      true,
+                                      () {
+                                        print("This was tapped");
+                                      },
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 4,
+                          ),
+                          child: StepCountBar(
+                              name, miles, calories, duration, value, name),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              delete();
+                              print("kk");
+                            },
+                            icon: Icon(Icons.refresh, size: 35.0)),
+                        const StepDailyAvg(),
+                      ],
                     ),
-                    const StepDailyAvg(),
-                  ],
-                ),
-              ),
-            ],
+                  ),
+                ],
+              );
+            },
           );
         },
       ),
@@ -150,5 +194,64 @@ class _StepcountScreenState extends State<StepcountScreen> {
   double calculateCalories(int steps) {
     double caloriesValue = (steps * 0.0566);
     return caloriesValue;
+  }
+
+  void save() async {
+    prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('text', name);
+    // retrieve();
+  }
+
+  retrieve() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getInt('text')!;
+    });
+  }
+
+  // reset() async{
+  //   prefs = await SharedPreferences.getInstance();
+  //   await prefs.setInt('text', 0);
+  //   // retrieve();
+  // }
+  delete() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.remove('text');
+    name = 0;
+    setState(() {});
+  }
+}
+
+class AppHeader extends StatelessWidget {
+  const AppHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+      clipper: MyClipper(),
+      child: Container(
+        width: double.infinity,
+        height: 350.0,
+        color: secondaryColor,
+      ),
+    );
+  }
+}
+
+class MyClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(0, size.height - 160);
+    path.quadraticBezierTo(
+        size.width / 2, size.height, size.width, size.height - 170);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
   }
 }
