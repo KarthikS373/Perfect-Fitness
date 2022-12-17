@@ -1,12 +1,13 @@
+import 'package:fitness_monitoring/Screens/HomeScreen/HomeScreen.dart';
+import 'package:fitness_monitoring/Screens/LoginSignup/forgotPassword.dart';
 import 'package:fitness_monitoring/Utils/Routes/routes.dart';
 import 'package:fitness_monitoring/Utils/Theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../Services/firebase_auth_methods.dart';
 
 import '../../Services/authService.dart';
-
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -16,8 +17,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-  final _emailController= TextEditingController();
-  final _passwordController= TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
 
   void dispose(){
@@ -59,12 +60,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                           children: <TextSpan>[
-                        TextSpan(
-                            text: ' Fitness partner',
-                            style: TextStyle(
-                              color: Colors.white54,
-                            ))
-                      ])),
+                            TextSpan(
+                                text: ' Fitness partner',
+                                style: TextStyle(
+                                  color: Colors.white54,
+                                ))
+                          ])),
                 ),
                 SizedBox(
                   width: size.width,
@@ -75,7 +76,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: size.height * .3,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(20),
+                      ),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(.2),
@@ -199,10 +202,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-                              const Text(
-                                'Forgot Details',
-                                style: TextStyle(
-                                  color: Colors.black54,
+                              TextButton(
+                                child: const Text(
+                                  "Forgot Password?",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                onPressed: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) => const forgotPasswordScreen())
                                 ),
                               ),
                             ],
@@ -217,6 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                            final user = AuthServices.signIn(_emailController.text.trim(), _passwordController.text.trim(), context);
 
                          },
+
                           child: Container(
                             padding: const EdgeInsets.all(9),
                             height: 50,
