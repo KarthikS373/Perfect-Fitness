@@ -1,4 +1,4 @@
-# fitness_monitoring
+# Perfect Fitness
 
 A fitness monitoring API
 
