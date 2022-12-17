@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../Services/firebase_auth_methods.dart';
 
+import '../../Services/authService.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -15,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -218,10 +220,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         bottom: -20,
                         right: 30,
                         child: GestureDetector(
-                          onTap: () {
-                            firebaseAuth.loginWithEmail(email: _emailController.text, password: _passwordController.text, context: context);
+                         onTap: () {
+                           final user = AuthServices.signIn(_emailController.text.trim(), _passwordController.text.trim(), context);
 
-                          },
+                         },
+
                           child: Container(
                             padding: const EdgeInsets.all(9),
                             height: 50,
