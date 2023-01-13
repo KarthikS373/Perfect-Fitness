@@ -1,5 +1,8 @@
 # Perfect Fitness
 
+Features: Heart Rate Tracker, Pedometer, Sleep and Water tracker, Calorie Counter
+A fitness app independent of all external sensors which aims to provide you with all the essential information at one place
+
 A fitness monitoring API
 
 ## Getting Started
